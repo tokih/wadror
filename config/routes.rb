@@ -1,4 +1,8 @@
 Ratebeer::Application.routes.draw do
+  resources :ratings, only: [:index, :new, :create, :destroy]  
+
+  root 'breweries#index'
+
   resources :beers
 
   resources :breweries
