@@ -1,6 +1,7 @@
 module RatingAverage
 	extend ActiveSupport::Concern
         def average_rating
+		return 0 if ratings.empty?
                 arr = []
                 ratings.each do |rating|
                         arr << rating.score

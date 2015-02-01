@@ -54,3 +54,5 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'rb-readline'
+
+gem 'bcrypt-ruby', '~> 3.1.2'

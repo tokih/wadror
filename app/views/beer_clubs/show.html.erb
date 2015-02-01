@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <%= @beer_club.to_s %>
+</p>
+
+<% unless @beer_club.users.empty? %>
+  <p>
+    <strong>Members</strong><br />
+  </p>
+
+  <ul>
+  <% @beer_club.users.each do |user| %>
+    <li><%= link_to "#{user.to_s}", user %></li>
+  <% end %>
+<% else %>
+  <p>Club does not yet have any members!</p>
+<% end %>
+
+<%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
+<%= link_to 'Back', beer_clubs_path %>
