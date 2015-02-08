@@ -20,7 +20,7 @@ Established in <%= @brewery.year %>
  <p>Has <%= pluralize(@brewery.ratings.count,'rating','ratings') %>, average <%= "#{@brewery.average_rating}" %></p>
 <% end %>
 
-
+<%= link_to 'Delete', brewery_path(@brewery), method: :delete, data: { confirm: 'Are you sure?' } %>
 <%= link_to 'Edit', edit_brewery_path(@brewery) %> |
 <%= link_to 'Back', breweries_path %>
 <%= link_to 'List of beers', beers_path %>

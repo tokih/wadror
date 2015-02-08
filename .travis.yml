@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+- 2.0.0
+script:
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: Lae0joq2zYM3IRmNLyJub0ZFI0ng7U6+LCPzMH1/Up6UeJte+dspCvIeJKmwqqkydMfpax4ojlEmTAB/tbyCXulSyNYdeiaANHvkh25XWO9cUOQzB+j6K8QiqPVl/dpJkY/VCC93FPK8/WDB5gmV1Hv4/MAyzeG+eUdsWfcEGSs=
+  app: desolate-inlet-5250
+  on:
+    repo: tokih/wadror
+  run: "rake db:migrate"
+env:
+  global:
+    secure: OO86np9Q7kE7fs6bUEUNUlNNjfpy7hExysja5WCrfDhpxE2ppboz5+Je2S/vhwyzYCZrxLBMRXsyzeriUZ3MSnbPBjCdTVXIXO1aBKk1f+Q1Y91R1/aApNjyNWwIw+OFRD24OhuPXmKHC8dmJDSfWFJ91X4jiSP72myHvO8Zl0g=
