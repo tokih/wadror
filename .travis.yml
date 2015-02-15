@@ -13,7 +13,8 @@ deploy:
   app: desolate-inlet-5250
   on:
     repo: tokih/wadror
-  run: "rake db:migrate"
+  run: rake db:migrate
 env:
   global:
-    secure: OO86np9Q7kE7fs6bUEUNUlNNjfpy7hExysja5WCrfDhpxE2ppboz5+Je2S/vhwyzYCZrxLBMRXsyzeriUZ3MSnbPBjCdTVXIXO1aBKk1f+Q1Y91R1/aApNjyNWwIw+OFRD24OhuPXmKHC8dmJDSfWFJ91X4jiSP72myHvO8Zl0g=
+  - secure: OO86np9Q7kE7fs6bUEUNUlNNjfpy7hExysja5WCrfDhpxE2ppboz5+Je2S/vhwyzYCZrxLBMRXsyzeriUZ3MSnbPBjCdTVXIXO1aBKk1f+Q1Y91R1/aApNjyNWwIw+OFRD24OhuPXmKHC8dmJDSfWFJ91X4jiSP72myHvO8Zl0g=
+  - secure: UJ5n+fYGZ5ksC9lCHpXcwpj/Xa/AP6Hdxjc1LtmBvhztj9F2wq0S54CqxyAidvqjrjrGTc98MJ4KO2nh97UmPq+rlSIK48vTJ98/WZFGuBXelbQRb9kHnRNw/cBv+9bB5f2xs2WC9t3011fb3OfywdtzjgWhpaSZ3n7kfZGN080=

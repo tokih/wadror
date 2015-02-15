@@ -1,5 +1,5 @@
 <h1>Listing beer_clubs</h1>
-
+<% unless @beer_clubs.empty? %>
 <table>
   <thead>
     <tr>
@@ -15,7 +15,7 @@
   <tbody>
     <% @beer_clubs.each do |beer_club| %>
       <tr>
-        <td><%= link_to "#{beer_club_name}", beer_club %></td>
+        <td><%= link_to "#{beer_club.name}", beer_club %></td>
         <td><%= beer_club.founded %></td>
         <td><%= beer_club.city %></td>
       </tr>
@@ -24,5 +24,5 @@
 </table>
 
 <br>
-
+<% end %>
 <%= link_to('New Beer club', new_beer_club_path) if current_user %>

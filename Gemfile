@@ -9,6 +9,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 group :development, :test do
@@ -23,6 +24,10 @@ end
 group :production do
    gem 'pg'
    gem 'rails_12factor'
+end
+
+group :development, :production, :test do
+   gem 'httparty'
 end
 
 # Use SCSS for stylesheets
