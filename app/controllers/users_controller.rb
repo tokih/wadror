@@ -37,6 +37,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle_activity
+    user = User.find(params[:id])
+    if current_user.id != user.id
+      user.update_attribute :locked, (not user.locked)
+
+      new_status = user.locked? ? "Locked" : "Open"
+
+      redirect_to :back, notice:"User account status changed to #{new_status}"
+    else
+      redirect_to user_path(user), notice: 'You cannot lock our own account'
+    end
+  end
+
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update

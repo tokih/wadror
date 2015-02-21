@@ -7,7 +7,9 @@ Ratebeer::Application.routes.draw do
 
   resource :session, only: [:new, :create, :delete]
 
-  resources :users
+  resources :users do
+    post 'toggle_activity', on: :member
+  end
 
   resources :ratings, only: [:index, :new, :create, :destroy]  
 
@@ -17,7 +19,9 @@ Ratebeer::Application.routes.draw do
 
   resources :beers
 
-  resources :breweries
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
 
   get 'signup', to: 'users#new'
 

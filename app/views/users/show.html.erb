@@ -5,6 +5,18 @@
   <%= @user.username %>
 </p>
 
+<% if current_user and current_user.admin %>
+  <% if @user.locked %>
+  <p>
+    <%= link_to "Unlock Account", toggle_activity_user_path(@user.id), method: :post, class: "btn btn-success" %>
+  </p>
+  <% elsif %>
+  <p>
+    <%= link_to "Lock Account", toggle_activity_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+  </p>
+  <% end %>
+<% end %>
+
 <% if @user.ratings.empty? %>
   <p><%= @user.username %> has not yet made any ratings!</p>
 <% else %>
@@ -26,13 +38,13 @@
     <strong>memberships</strong>
     <ul>
     <% @user.beer_clubs.each do |bc| %>
-      <li><%=link_to "#{bc.to_s}", bc %>&nbsp;<% if @user == current_user %>(<%= link_to 'delete', bc, method: :delete, data: {confirm: 'Are you sure?'} %>)<% end %></li>
+      <li><%=link_to "#{bc.to_s}", bc %>&nbsp;<% if @user == current_user %>(<%= link_to 'delete', bc, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' %>)<% end %></li>
     <% end %>
     </ul>
   </p>
 <% end %>
 <% if current_user == @user %>
-  <%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'Delete', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'  %>
+  <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-warning' %> |
 <% end %>
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path, class: 'btn btn-primary' %>

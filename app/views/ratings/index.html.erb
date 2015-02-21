@@ -1,11 +1,31 @@
-<h2>List of ratings</h2>
-
-<ul>
-  <% @ratings.each do |rating| %>
-    <li><%= rating.to_s %> <%= link_to "#{rating.user.username}", rating.user %></li>
+<h2>Top 3 Breweries</h2>
+  <ul>
+  <% @top_breweries.each do |b| %>
+    <li><%= "#{b.name}" %></li>
   <% end %>
-</ul>
-
-<p>Total number of ratings in the database: <%= "#{@ratings.count}" %></p>
-
-<%= link_to 'New Rating', new_rating_path %>
+  </ul>
+<h2>Top 3 Beers</h2>
+  <ul>
+  <% @top_beers.each do |b| %>
+    <li><%= "#{b.name}" %></li>
+  <% end %>
+  </ul>
+<h2>Top 3 Styles</h2>
+  <ul>
+  <% @top_styles.each do |s| %>
+    <li><%= "#{s.name}, #{round(s.average_rating)}" %></li>
+  <% end %>
+  </ul>
+<h2>Top 3 Raters</h2>
+  <ul>
+  <% @top_raters.each do |r| %>
+    <li><%= "#{r.username}" %></li>
+  <% end %>
+  </ul>
+<h2>Last 5 Ratings</h2>
+  <ul>
+  <% @recent_ratings.each do |r| %>
+    <li><%= "#{r.beer} #{r.score} by #{r.user.username}" %></li>
+  <% end %>
+  </ul>
+<%= link_to 'New Rating', new_rating_path, class: 'btn btn-primary' %>
