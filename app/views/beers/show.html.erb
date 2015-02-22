@@ -23,6 +23,4 @@
     <%= f.submit class:"btn btn-primary" %>
   <% end %>
 <% end %>
-<% if current_user.admin %>
-  <%= edit_and_destroy_buttons(@beer) %>
-<% end %>
+<%= edit_and_destroy_buttons(@beer) %>

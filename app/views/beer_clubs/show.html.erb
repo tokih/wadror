@@ -22,12 +22,12 @@
   
   <%= form_for(@membership) do |m| %>
     <%= m.hidden_field :beer_club_id %>
-    <%= m.submit value:"join" class: 'btn btn-success' %>
+    <%= m.submit value:"join", class: 'btn btn-primary' %>
   <% end %>
 <% elsif current_user and current_user.beer_clubs.include? @beer_club %>
    <%= form_for(@membership, method: "delete") do |f| %>
       <%= f.hidden_field :beer_club_id %>
-      <%= f.submit value: "end the membership" class: 'btn btn-primary' %>
+      <%= f.submit value: "end the membership", class: 'btn btn-primary' %>
    <% end %>
 <% elsif current_user %>
   <p>You are a member of this club</p>
@@ -35,7 +35,4 @@
 <% else %>
   <p>You need to login to create/view a membership with this club</p>
 <% end %> 
-
-<% if current_user.admin %>
-  <%= edit_and_destroy_buttons(@beer) %>
-<% end %>
+<%= edit_and_destroy_buttons(@beer_club) %>

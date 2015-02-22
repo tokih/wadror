@@ -11,7 +11,7 @@ class BeerClubsController < ApplicationController
   # GET /beer_clubs/1
   # GET /beer_clubs/1.json
   def show
-    if current_user.beer_clubs.include? @beer_club
+    if current_user && current_user.beer_clubs.include?(@beer_club)
       @membership = current_user.memberships.select { |m| m.user_id == current_user.id and m.beer_club_id == @beer_club.id }.first
     else
       @membership = Membership.new
