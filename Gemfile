@@ -27,8 +27,6 @@ group :development, :test do
     gem 'better_errors'
     gem 'rspec-rails', '~> 3.0'
     gem 'rspec-its'
-    gem 'jquery-turbolinks'
-    gem 'angularjs-rails', '~> 1.3.10'
     gem 'rack-mini-profiler'
 end
 
@@ -41,6 +39,8 @@ group :development, :production, :test do
    gem 'httparty'
    gem 'attribute-defaults'
    gem 'omniauth-github'
+   gem 'jquery-turbolinks'
+   gem 'angularjs-rails', '~> 1.3.10'
 end
 
 # Use SCSS for stylesheets
