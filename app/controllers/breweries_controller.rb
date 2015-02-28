@@ -1,12 +1,54 @@
 class BreweriesController < ApplicationController
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :brewerylist]
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
+  before_action :expire_cache, only: [:create, :update, :destroy]
+  before_action :skip_if_cached, only: [:index]
 
   # GET /breweries
   # GET /breweries.json
+  def expire_cache
+    ["brewerylist-name", "brewerylist-year"].each{ |f| expire_fragment(f) }
+  end
+
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?( "brewerylist-#{@order}"  )
+  end
+
+  def brewerylist
+  end
+
   def index
+    @breweries = Brewery.all
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
+
+    order = params[:order] || 'name'
+   
+    @active_breweries = case order
+      when 'name' then @active_breweries.sort_by { |br| br.name }
+      when 'year' then @active_breweries.sort_by { |br| br.year }
+    end
+    @retired_breweries = case order
+      when 'name' then @retired_breweries.sort_by { |br| br.name }
+      when 'year' then @retired_breweries.sort_by { |br| br.year }
+    end
+    
+    if session
+      if not(session[:asc_order]) || not(session[:order].eql?(order))
+        session[:asc_order] = true
+      else
+        session[:asc_order] = not(session[:asc_order])
+      end
+    end
+
+    unless session[:asc_order]
+      @active_breweries = @active_breweries.reverse
+      @retired_breweries = @retired_breweries.reverse
+    end
+
+    session[:order] = order
+
   end
 
   # GET /breweries/1

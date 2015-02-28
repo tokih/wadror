@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, only: [:confirm, :create, :new, :update, :delete, :edit, :apply]
 
   # GET /memberships
   # GET /memberships.json
@@ -10,6 +11,17 @@ class MembershipsController < ApplicationController
   # GET /memberships/1
   # GET /memberships/1.json
   def show
+  end
+
+  def confirm
+    applied_membership = Membership.find(params[:id])
+    confirmer_membership = Membership.where("user.id = ? and beer_club_id = ? and confirmed = ?", current_user.id, applied_membership.beer_club_id, true)
+    if confirmer_membership
+      applied_membership.update_attribute :confirmed, true
+      redirect_to beer_club_path applied_membership.beer_club.id, notice: "Membership for #{User.find(applied_membership.user.id).username} confirmed successfully."
+    else
+      redirect_to beer_club_path applied_membership.beer_club_id, notice: "You need to be a member of this beer club to confirm other applications!"
+    end
   end
 
   # GET /memberships/new
@@ -27,12 +39,11 @@ class MembershipsController < ApplicationController
   # POST /memberships.json
   def create
     @membership = Membership.new params.require(:membership).permit(:beer_club_id, :user_id)
-    #@membership = Membership.new(membership_params)
 
     respond_to do |format|
       if @membership.save
         current_user.memberships << @membership
-        format.html { redirect_to beer_club_path(@membership.beer_club), notice: "#{current_user}, welcome to the club" }
+        format.html { redirect_to beer_club_path(@membership.beer_club), notice: "#{current_user}, your application is now queued for approval" }
         format.json { render action: 'show', status: :created, location: @membership }
       else
         @users = User.all

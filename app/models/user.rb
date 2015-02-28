@@ -62,4 +62,21 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	def has_confirmed_membership(beer_club)
+		membership = Membership.where("beer_club_id = ? and user_id = ? and confirmed = ?", beer_club, self.id, true)
+		if membership.empty?
+			return false
+		else
+			return true
+		end
+	end
+
+	def create_approved_membership(bc, u)
+		@membership = Membership.create(user:u, beer_club:bc, confirmed:true)
+	end
+
+	def is_frozen?
+		return self.locked
+	end
+
 end

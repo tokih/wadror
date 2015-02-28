@@ -5,7 +5,7 @@
 <li><%= link_to 'users', users_path %></li>
 <li><%= link_to 'clubs', beer_clubs_path %></li>
 <li><%= link_to 'places', places_path %></li>
-<% if not current_user.nil? %>
+<% if current_user %>
   <li role="presentation" class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
       <%="#{current_user.username}"%> <span class="caret"></span>
@@ -19,4 +19,5 @@
 <% else %>
     <li><%= link_to 'signin', signin_path %></li>
     <li><%= link_to 'signup', signup_path %></li>
+    <li><%= link_to 'Login with GitHub', 'auth/github', class: 'btn btn-primary' %>
 <% end %>

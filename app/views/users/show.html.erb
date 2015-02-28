@@ -31,16 +31,26 @@
   </p>
 <% end %>
 
-<% if @user.beer_clubs.empty? %>
+<% if @memberships.empty? %>
   <p><%= @user.username %> has not joined any clubs</p>
 <% else %>
   <p>
-    <strong>memberships</strong>
+    <strong>Memberships</strong>
     <ul>
-    <% @user.beer_clubs.each do |bc| %>
-      <li><%=link_to "#{bc.to_s}", bc %>&nbsp;<% if @user == current_user %>(<%= link_to 'delete', bc, method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' %>)<% end %></li>
+    <% @memberships.each do |m| %>
+      <li><%=link_to "#{m.beer_club}", beer_club_path(m.beer_club) %>&nbsp;<% if @user == current_user %>(<%= link_to 'delete', beer_club_path(m.beer_club), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' %>)<% end %></li>
     <% end %>
     </ul>
+  </p>
+  <p>
+    <strong>Memberships Pending for Approval</strong>
+    <% unless @pending_memberships.empty? %>
+      <% @pending_memberships.each do |pm| %>
+        <ul>
+          <li><%= "#{pm.beer_club}, #{pm.created_at}" %></li>
+        </ul>
+      <% end %>
+    <% end %>
   </p>
 <% end %>
 <% if current_user == @user %>

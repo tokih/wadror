@@ -16,6 +16,8 @@ group :test do
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :development, :test do
@@ -25,6 +27,9 @@ group :development, :test do
     gem 'better_errors'
     gem 'rspec-rails', '~> 3.0'
     gem 'rspec-its'
+    gem 'jquery-turbolinks'
+    gem 'angularjs-rails', '~> 1.3.10'
+    gem 'rack-mini-profiler'
 end
 
 group :production do
@@ -34,6 +39,8 @@ end
 
 group :development, :production, :test do
    gem 'httparty'
+   gem 'attribute-defaults'
+   gem 'omniauth-github'
 end
 
 # Use SCSS for stylesheets

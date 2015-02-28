@@ -4,12 +4,14 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.includes(:ratings, :beers).all
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @pending_memberships = Membership.pending(@user.id)
+    @memberships = Membership.active(@user.id)
   end
 
   # GET /users/new

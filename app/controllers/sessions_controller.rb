@@ -3,6 +3,17 @@ class SessionsController < ApplicationController
 
 	end
 
+	def create_oauth
+		user = User.find_by username: env["omniauth.auth"].info.nickname
+		if user && not(user.locked)
+			session[:user_id] = user.id
+			redirect_to user_path(user), notice: 'Welcome back!'
+		else
+			redirect_to signin_path, notice: 'Invalid username or account is locked'
+		end
+
+	end
+
 	def create
 		user = User.find_by username: params[:username]
 		if user && user.authenticate(params[:password])

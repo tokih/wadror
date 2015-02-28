@@ -1,36 +1,43 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <%= @beer_club.to_s %>
 </p>
 
-<% unless @beer_club.users.empty? %>
+<% unless @memberships.empty? %>
   <p>
     <strong>Members</strong><br />
   </p>
 
   <ul>
-  <% @beer_club.users.each do |user| %>
-    <li><%= link_to "#{user.to_s}", user %></li>
+  <% @memberships.each do |m| %>
+    <li><%= link_to "#{m.user}", user_path(m.user) %></li>
   <% end %>
 <% else %>
   <p>Club does not yet have any members!</p>
 <% end %>
 
-<% if current_user and not current_user.beer_clubs.include? @beer_club %>
+<% if current_user and not current_user.has_confirmed_membership(@beer_club.id) %>
   <h4>join this club:</h4>
   
   <%= form_for(@membership) do |m| %>
     <%= m.hidden_field :beer_club_id %>
     <%= m.submit value:"join", class: 'btn btn-primary' %>
   <% end %>
-<% elsif current_user and current_user.beer_clubs.include? @beer_club %>
+<% elsif current_user and current_user.has_confirmed_membership(@beer_club.id) %>
    <%= form_for(@membership, method: "delete") do |f| %>
       <%= f.hidden_field :beer_club_id %>
       <%= f.submit value: "end the membership", class: 'btn btn-primary' %>
    <% end %>
+  <% unless @unconfirmed_memberships.empty? %>
+    <% if current_user.has_confirmed_membership(@beer_club.id) %>
+      <h2>Pending Approval</h2>
+      <ul>
+      <% @unconfirmed_memberships.each do |um| %>
+        <li><%= "#{um.user}" %><%= link_to 'Accept', confirm_membership_path(um), method: :post, class: 'btn btn-success' %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  <% end %>
 <% elsif current_user %>
-  <p>You are a member of this club</p>
 
 <% else %>
   <p>You need to login to create/view a membership with this club</p>
